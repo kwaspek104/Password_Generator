@@ -8,18 +8,27 @@ function writePassword() {
   passwordText.value = password;
 }
 
+var upperCase  = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+var lowerCase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+var numeric = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+var specialCharacters = ["!", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", "\:", "\;", " < ", "=", " > ", " ? ", "@", "[", "\\", "]", " ^ ", "_", "`", "{", "|", "}", "~"];
+
 // Add event listener to generate button
-generateBtn.addEventListener("click", function generatePassword(event) {
-event.preventDefault();
+generateBtn.addEventListener("click", writePassword);
 
-var options 
+function generatePasswordOptions() {
 
-var characters = prompt("Hi cutie. ;) Please choose a number from 8-128. This will be how many characters your password will have.")
-while (characters < 8 || characters > 128) {
-characters = prompt("Choose a number between 8 and 128!");
+var lowerCaseInput;
+var upperCaseInput;
+var numericInput;
+var specialCharactersInput;
+
+var length = prompt("Hi cutie. ;) Please choose a number from 8-128. This will be how many characters your password will have.")
+if (length < 8 || length > 128) {
+return alert("Really dude!? The length must be between 8 and 128!")
 }
 
-var lowerCaseInput = confirm("Do you want lowercase characters in your password?")
+lowerCaseInput = confirm("Do you want lowercase characters in your password?")
 if (lowerCaseInput) {
 alert("Awesome!")
 }
@@ -27,7 +36,7 @@ else {
 alert("Okay...")
 }
 
-var upperCaseInput = confirm("Do you want uppercase characters in your password?")
+upperCaseInput = confirm("Do you want uppercase characters in your password?")
 if (upperCaseInput) {
 alert("Whoo!!!")
 }
@@ -35,7 +44,7 @@ else {
 alert("Okay...")
 }
 
-var numericInput = confirm("Do you want numeric characters?")
+numericInput = confirm("Do you want numeric characters?")
 if (numericInput) {
 alert("Yes!!!")
 }
@@ -43,7 +52,7 @@ else {
 alert("Hmm...>_>")
 }
 
-var specialCharactersInput = confirm("Final question! Do you want numeric characters?")
+specialCharactersInput = confirm("Final question! Do you want special characters?")
 if (specialCharactersInput) {
 alert("Yes!!!")
 }
@@ -52,73 +61,49 @@ alert("Wow! Really!?")
 }
 
 if (!lowerCaseInput  && !upperCaseInput  && !numericInput  && !specialCharactersInput) {
-alert("Oops! You need to have selected at least one criteria. Please try again!")
+return alert("Oops! You need to have selected at least one criteria. Please try again!")
 }
 
-else if (lowerCaseInput) {
-options = lowercase;
+var passwordOptions = {
+length: length, 
+containsLowerCase: lowerCaseInput,  
+cotainsUpperCase: upperCaseInput,
+conatinsNumeric: numericInput,
+containsSpecialCharacters: specialCharactersInput,
+} 
+
+return passwordOptions
 }
 
-else if (upperCaseInput) {
+function generatePassword () {
+
+var passwordPool = []
+var results = []
+var options = generatePasswordOptions()
+
+if (options.containsLowerCase) {
+passwordPool = passwordPool.concat(lowerCase)  
 }
 
-else if (numericInput) {
+if (options.containsUpperCase) {
+passwordPool = passwordPool.concat(upperCase)  
 }
 
-else if (specialCharactersInput) {
+if (options.conatinsNumeric) {
+passwordPool = passwordPool.concat(numeric)  
 }
 
-else if (lowerCaseInput && upperCaseInput) {
+if (options.containsSpecialCharacters) {
+passwordPool = passwordPool.concat(specialCharacters)  
 }
 
-else if (lowerCaseInput && numericInput) {
+for (var i = 0; i < options.length; i++) {
+var temp = passwordPool[Math.floor(Math.random() * options.length)];
+results.push(temp);
+  
+};
+console.log (`PasswordPool: ${passwordPool}`)
+console.log(`Results: ${results}`)
+
+return results.join("")
 }
-
-else if (lowerCaseInput && specialCharactersInput) {
-}
-
-else if (upperCaseInput && numericInput) {
-}
-
-else if (upperCaseInput && specialCharactersInput) {
-}
-
-else if (numericInput && specialCharactersInput) {
-}
-
-else if (lowerCaseInput && upperCaseInput && numericInput) {
-}
-
-else if (lowerCaseInput && upperCaseInput && specialCharactersInput) {
-}
-
-else if (lowerCaseInput && numericInput && specialCharactersInput) {
-}
-
-else if (upperCaseInput && numericInput && specialCharactersInput) {
-}
-
-else if (lowerCaseInput && upperCaseInput && numericInput && specialCharactersInput) {
-}
-
-
-var upperCase  = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-var lowercase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-var numeric = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-var specialCharacters = ["!", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", "\:", "\;", " < ", "=", " > ", " ? ", "@", "[", "\\", "]", " ^ ", "_", "`", "{", "|", "}", "~"];
-
-});
-function getRandomLower() {
-	return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
-}
-function getRandomUpper() {
-	return String.fromCharCode(Math.floor(Math.random() * 26) + 65);
-}
-
-function getRandomNumber() {
-	return String.fromCharCode(Math.floor(Math.random() * 10) + 48);
-}
-
-function getRandomSymbol() {
-  const symbols = "!#$%&'()*+,-./:;<=>?@[\]^_`{|}~"
-  return symbols [Math.floor(Math.random()* symbols.length)]};
