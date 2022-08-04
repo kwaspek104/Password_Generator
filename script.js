@@ -22,7 +22,7 @@ function generatePassword() {
   var upperCaseInput;
   var numericInput;
   var specialCharactersInput;
-  var options;
+  var options = [];
 
   var length = prompt("Hi cutie. ;) Please choose a number from 8-128. This will be how many characters your password will have.")
   if (length < 8 || length > 128) {
@@ -31,98 +31,38 @@ function generatePassword() {
 
   lowerCaseInput = confirm("Do you want lowercase characters in your password?")
   if (lowerCaseInput) {
+    options.push(...lowerCase)
     alert("Awesome!")
-  }
-  else {
+  } else {
     alert("Okay...")
   }
 
   upperCaseInput = confirm("Do you want uppercase characters in your password?")
   if (upperCaseInput) {
+    options.push(...upperCase)
     alert("Whoo!!!")
-  }
-  else {
+  } else {
     alert("Okay...")
   }
 
   numericInput = confirm("Do you want numeric characters?")
   if (numericInput) {
+    options.push(...numeric)
     alert("Yes!!!")
-  }
-  else {
+  } else {
     alert("Hmm...>_>")
   }
 
   specialCharactersInput = confirm("Final question! Do you want special characters?")
   if (specialCharactersInput) {
+    options.push(...specialCharacters)
     alert("Yes!!!")
-  }
-  else {
+  } else {
     alert("Wow! Really!?")
   }
 
   if (!lowerCaseInput && !upperCaseInput && !numericInput && !specialCharactersInput) {
     return alert("Oops! You need to have selected at least one criteria. Please try again!")
-  }
-
-  else if (lowerCaseInput && upperCaseInput && numericInput && specialCharactersInput) {
-    options = lowerCase.concat(upperCase, numeric, specialCharacters);
-  }
-
-  else if (upperCaseInput && numericInput && specialCharactersInput) {
-    options = upperCase.concat(numeric, specialCharacters);
-  }
-
-  else if (lowerCaseInput && numericInput && specialCharactersInput) {
-    options = lowerCase.concat(numeric, specialCharacters);
-  }
-
-  else if (lowerCaseInput && upperCaseInput && specialCharactersInput) {
-    options = lowerCase.concat(upperCase, specialCharacters);
-  }
-
-  else if (lowerCaseInput && upperCaseInput && numericInput) {
-    options = lowerCase.concat(upperCase, numeric);
-  }
-
-  else if (numericInput && specialCharactersInput) {
-    options = numeric.concat(specialCharacters);
-  }
-
-  else if (upperCaseInput && specialCharactersInput) {
-    options = upperCase.concat(specialCharacters);
-  }
-
-  else if (upperCaseInput && numericInput) {
-    options = upperCase.concat(numeric);
-  }
-
-  else if (lowerCaseInput && specialCharactersInput) {
-    options = lowerCase.concat(specialCharacters);
-  }
-
-  else if (lowerCaseInput && numericInput) {
-    options = lowerCase.concat(numeric);
-  }
-
-  else if (lowerCaseInput && upperCaseInput) {
-    options = lowerCase.concat(upperCase);
-  }
-
-  else if (lowerCaseInput) {
-    options = lowerCase;
-  }
-
-  else if (upperCaseInput) {
-    options = upperCase;
-  }
-
-  else if (numericInput) {
-    options = numeric;
-  }
-
-  else if (specialCharactersInput) {
-    options = specialCharacters;
   }
 
   var results = []
